@@ -7,9 +7,10 @@ from rdkit.Chem import Draw
 import matplotlib.pyplot as plt
 
 class ExploratoryDataAnalysis:
-    def __init__(self, data_path="data/bbb.csv", figure_dir="figures/"):
+    def __init__(self, data_path="data/bbb.csv"):
         self.data_path = data_path
-        self.figure_dir = figure_dir
+        self.figure_dir = os.path.join("data", "figures")  # Ensures all visuals are saved inside data/figures/
+        os.makedirs(self.figure_dir, exist_ok=True)  # Create the directory if it doesn't exist
 
         # Set up logger
         self.logger = logging.getLogger(__name__)
@@ -31,19 +32,28 @@ class ExploratoryDataAnalysis:
                 return None
 
             df = pd.read_csv(self.data_path)
-            os.makedirs(self.figure_dir, exist_ok=True)
 
-            # 1️⃣ Label Distribution (0 = Non-permeable, 1 = Permeable)
+            # ✅ Label Distribution (0 = Non-permeable, 1 = Permeable)
             plt.figure(figsize=(6, 4))
-            sns.countplot(x=df["Y"], palette="coolwarm")
+            ax = sns.countplot(x=df["Y"], palette="coolwarm")
+
+            # Add numbers on top of bars
+            for p in ax.patches:
+                ax.annotate(f'{int(p.get_height())}', 
+                            (p.get_x() + p.get_width() / 2, p.get_height()), 
+                            ha='center', va='bottom', fontsize=12, fontweight='bold')
+
             plt.xlabel("BBB Permeability (0 = No, 1 = Yes)")
             plt.ylabel("Count")
             plt.title("Label Distribution - Blood Brain Barrier Permeability")
+
+            # Save figure
             plt.savefig(os.path.join(self.figure_dir, "label_distribution.png"))
             plt.close()
             self.logger.info("✅ Label distribution saved.")
 
-            # 2️⃣ SMILES Length Distribution (Molecular Complexity)
+
+            # ✅ SMILES Length Distribution (Molecular Complexity)
             df["SMILES_Length"] = df["Drug"].apply(len)
             plt.figure(figsize=(8, 5))
             sns.histplot(df["SMILES_Length"], bins=30, kde=True, color="purple")
@@ -54,16 +64,26 @@ class ExploratoryDataAnalysis:
             plt.close()
             self.logger.info("✅ SMILES length distribution saved.")
 
-            # 3️⃣ Visualizing Molecular Structures (First 6)
+            # ✅ Visualizing Molecular Structures (First 6)
             smiles_list = df["Drug"].iloc[:6].tolist()
-            mols = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
-            img = Draw.MolsToGridImage(mols, molsPerRow=3, subImgSize=(200, 200))
+            drug_ids = df["Drug_ID"].iloc[:6].astype(str).tolist()  # Convert IDs to strings
+            drug_names = df["Drug"].iloc[:6].tolist()  # Get drug names
 
+            # Convert SMILES to molecular structures
+            mols = [Chem.MolFromSmiles(smiles) for smiles in smiles_list]
+
+            # Create labels using Drug ID and Name
+            labels = [f"{drug_id}: {drug_name}" for drug_id, drug_name in zip(drug_ids, drug_names)]
+
+            # Generate grid image with labels
+            img = Draw.MolsToGridImage(mols, molsPerRow=3, subImgSize=(200, 200), legends=labels)
+
+            # Save image
             img_path = os.path.join(self.figure_dir, "molecule_visualization.png")
             img.save(img_path)
             self.logger.info("✅ Molecular visualization saved.")
 
-            self.logger.info("EDA visualizations completed and saved in 'figures' folder.")
+            self.logger.info("EDA visualizations completed and saved in 'data/figures' folder.")
 
         except Exception as e:
             self.logger.error(f"Error during EDA: {e}", exc_info=True)
@@ -72,4 +92,3 @@ class ExploratoryDataAnalysis:
 if __name__ == "__main__":
     eda = ExploratoryDataAnalysis()
     eda.generate_visuals()
-

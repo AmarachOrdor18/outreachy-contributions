@@ -6,8 +6,17 @@ from tdc.single_pred import ADME
 
 class Dataloader:
     def __init__(self, data_dir="data/"):
-        self.data_dir = os.path.abspath(data_dir)
-        self.data_file = os.path.join(self.data_dir, "bbb.csv")  # Save BBB dataset here
+        # Get the absolute path to the project root (parent of the notebooks folder)
+        project_root = os.path.abspath(os.path.join(os.getcwd(), '..'))
+        
+        # Join the root project directory with 'data' folder
+        self.data_dir = os.path.join(project_root, data_dir)
+        
+        # Print the data_dir to debug the correct path
+        print(f"Data directory: {self.data_dir}")
+        
+        # Define file paths for the dataset and splits
+        self.data_file = os.path.join(self.data_dir, "bbb.csv")  # Full dataset
         self.train_file = os.path.join(self.data_dir, "bbb_train.csv")
         self.valid_file = os.path.join(self.data_dir, "bbb_valid.csv")
         self.test_file = os.path.join(self.data_dir, "bbb_test.csv")
@@ -22,9 +31,10 @@ class Dataloader:
         handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
         self.logger.addHandler(handler)
 
-    def fetch_bbb_dataset(self):
+    def fetch_bbb_dataset(self, split_method="scaffold"):
         """
         Downloads the BBB (Blood-Brain Barrier) dataset from the ADME Pharmacokinetics category.
+        Uses the specified split method (default: scaffold).
         Saves it as a CSV file and returns the DataFrame.
         """
         try:
@@ -43,9 +53,10 @@ class Dataloader:
             self.bbb_df.to_csv(self.data_file, index=False)
             self.logger.info(f"✅ Full dataset saved to {self.data_file} (Shape: {self.bbb_df.shape})")
 
-            # Get train, validation, and test splits
-            split = self.data.get_split()
-            
+            # Perform Scaffold Split
+            self.logger.info(f"Performing {split_method} split...")
+            split = self.data.get_split(method=split_method)
+
             train_df = split["train"]
             valid_df = split["valid"]
             test_df = split["test"]
@@ -66,4 +77,4 @@ class Dataloader:
 
 if __name__ == "__main__":
     downloader = Dataloader()
-    downloader.fetch_bbb_dataset()
+    downloader.fetch_bbb_dataset(split_method="scaffold")  # Use Scaffold Split
