@@ -1,0 +1,8 @@
+SMR_VSA8
+SlogP_VSA9
+fr_azo
+fr_diazo
+fr_isocyan
+fr_isothiocyan
+fr_prisulfonamd
+fr_thiocyan

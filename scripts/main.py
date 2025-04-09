@@ -1,72 +1,84 @@
 import os
 import logging
+from pathlib import Path
 from eda import ExploratoryDataAnalysis
 from featurise import FeatureExtractor
 from data_loader import Dataloader
 from train_model import ModelTraining
-from evaluate_model import ModelEvaluation  # Ensure this is correctly imported
+from evaluate_model import ModelEvaluation
 
 # Set up logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
-# File paths
+# File paths (using formatted strings for dynamic IDs)
 DATA_PATH = "data/bbb.csv"
-TRAIN_FEATURES_PATH = "data/bbb_train_features.csv"
-VALID_FEATURES_PATH = "data/bbb_valid_features.csv"
-TEST_FEATURES_PATH = "data/bbb_test_features.csv"
-MODEL_PATH = "models/best_xgboost_model.pkl"
-RESULTS_PATH = "results/evaluation_metrics.json"
-
 
 def main():
     """Automates the entire BBB dataset processing pipeline."""
+    
+    # Set identifiers (these could be passed as arguments or read from a config)
+    featurizer_id = "eos8a4x"  # Example featurizer ID
+    model_type = "random_forest"  # Example model type
+    cv_strategy = "stratified_kfold"  # Example CV strategy
+
+    # Feature paths dynamically using featurizer_id
+    train_features_path = f"data/bbb_train_{featurizer_id}_features.csv"
+    valid_features_path = f"data/bbb_valid_{featurizer_id}_features.csv"
+    test_features_path = f"data/bbb_test_{featurizer_id}_features.csv"
 
     # Step 1: Download dataset if not present
     if not os.path.exists(DATA_PATH):
         logger.info("\U0001F4E5 Dataset not found. Downloading now...")
         downloader = Dataloader()
-        downloader.download_data()
+        downloader.fetch_bbb_dataset()  # Download and split dataset
     else:
         logger.info("✅ Dataset found. Skipping download.")
 
-    # Step 2: Perform Exploratory Data Analysis
+    # Step 2: Perform Exploratory Data Analysis (EDA)
     logger.info("📊 Running Exploratory Data Analysis...")
-    eda = ExploratoryDataAnalysis()
+    eda = ExploratoryDataAnalysis(data_dir="data/")
     eda.generate_visuals()
 
-    # Step 3: Extract Features (train, validation, and test features) if not already done
-    if not (os.path.exists(TRAIN_FEATURES_PATH) and os.path.exists(VALID_FEATURES_PATH) and os.path.exists(TEST_FEATURES_PATH)):
+    # Step 3: Extract Features
+    if not (os.path.exists(train_features_path) and os.path.exists(valid_features_path) and os.path.exists(test_features_path)):
         logger.info("🔬 Extracting molecular descriptors...")
-        extractor = FeatureExtractor()
-        extractor.generate_features()  # Ensure this handles creating the three separate files
+        feature_extractor = FeatureExtractor(featurizer_id=featurizer_id)
+        feature_extractor.generate_features()
     else:
         logger.info("✅ Feature extraction already done. Skipping.")
 
     # Step 4: Train Model
-    if not os.path.exists(MODEL_PATH):
-        logger.info("🤖 Training the XGBoost model...")
-        model_trainer = ModelTraining(
-            train_file=TRAIN_FEATURES_PATH,
-            test_file=VALID_FEATURES_PATH,
-            val_file=VALID_FEATURES_PATH
+    model_filename = f"best_{featurizer_id}_{model_type}_{cv_strategy}_model.pkl"
+    model_path = os.path.join("models", model_filename)
+
+    if not os.path.exists(model_path):
+        logger.info("🤖 Training the model...")
+        trainer = ModelTraining(
+            featurizer_id=featurizer_id,
+            model_type=model_type,
+            cv_strategy=cv_strategy,
+            train_file=train_features_path,
+            val_file=valid_features_path,
+            test_file=test_features_path
         )
-        model_trainer.run()
+        trainer.run()  # This trains and saves the model
     else:
-        logger.info("✅ Model already trained. Skipping training.")
+        logger.info(f"✅ Model found at {model_path}. Skipping training.")
 
     # Step 5: Evaluate Model
-    if os.path.exists(MODEL_PATH) and os.path.exists(VALID_FEATURES_PATH):
+    if os.path.exists(model_path) and os.path.exists(valid_features_path):
         logger.info("📈 Evaluating the model...")
-        model_evaluator = ModelEvaluation(MODEL_PATH, VALID_FEATURES_PATH)
-        model_evaluator.run_evaluation()
+        evaluator = ModelEvaluation(
+            featurizer_id=featurizer_id,
+            model_type=model_type,
+            cv_strategy=cv_strategy
+        )
+        evaluator.run_evaluation()
     else:
         logger.warning("⚠️ Model or validation dataset not found. Skipping evaluation.")
-    
-    logger.info("🚀 Full pipeline completed successfully!")
 
+    logger.info("🚀 Full pipeline completed successfully!")
 
 if __name__ == "__main__":
     main()

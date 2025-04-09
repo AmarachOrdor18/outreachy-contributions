@@ -3,24 +3,21 @@ import shutil
 import logging
 import pandas as pd
 from tdc.single_pred import ADME
+from pathlib import Path
 
-class Dataloader:
+class Dataloader:                                                                                                                                        
     def __init__(self, data_dir="data/"):
-        # Get the absolute path to the project root (parent of the notebooks folder)
-        project_root = os.path.abspath(os.path.join(os.getcwd(), '..'))
-        
-        # Join the root project directory with 'data' folder
-        self.data_dir = os.path.join(project_root, data_dir)
-        
-        # Print the data_dir to debug the correct path
-        print(f"Data directory: {self.data_dir}")
-        
-        # Define file paths for the dataset and splits
-        self.data_file = os.path.join(self.data_dir, "bbb.csv")  # Full dataset
-        self.train_file = os.path.join(self.data_dir, "bbb_train.csv")
-        self.valid_file = os.path.join(self.data_dir, "bbb_valid.csv")
-        self.test_file = os.path.join(self.data_dir, "bbb_test.csv")
-        
+        # Get the notebook directory and the base directory for data
+        notebook_dir = Path(__file__).resolve().parent
+        base_path = notebook_dir.parent  # Parent directory of the notebook
+
+        # Set the data directory relative to the base_path
+        self.data_dir = base_path / data_dir
+        self.data_file = self.data_dir / "bbb.csv"  # Full dataset
+        self.train_file = self.data_dir / "bbb_train.csv"
+        self.valid_file = self.data_dir / "bbb_valid.csv"
+        self.test_file = self.data_dir / "bbb_test.csv"
+
         self.data = None
         self.bbb_df = None
 
@@ -30,7 +27,7 @@ class Dataloader:
         handler = logging.StreamHandler()
         handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
         self.logger.addHandler(handler)
-
+        
     def fetch_bbb_dataset(self, split_method="scaffold"):
         """
         Downloads the BBB (Blood-Brain Barrier) dataset from the ADME Pharmacokinetics category.
@@ -44,6 +41,7 @@ class Dataloader:
                 shutil.rmtree(self.data_dir)
 
             os.makedirs(self.data_dir, exist_ok=True)
+            self.logger.info(f"Data directory created at: {self.data_dir}")
 
             self.logger.info("Downloading BBB dataset from ADME Pharmacokinetics...")
             self.data = ADME(name="BBB_Martins", path=self.data_dir)
