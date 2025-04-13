@@ -6,6 +6,7 @@ from featurise import FeatureExtractor
 from data_loader import Dataloader
 from train_model import ModelTraining
 from evaluate_model import ModelEvaluation
+from apply_model import ApplyTrainedModel
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
@@ -66,7 +67,21 @@ def main():
     else:
         logger.info(f"✅ Model found at {model_path}. Skipping training.")
 
-    # Step 5: Evaluate Model
+    # Step 5: Apply Model to Unseen Data Before Evaluation
+    unseen_data_path = "data/unseen_data.csv"  # Change this path as needed
+    if os.path.exists(model_path) and os.path.exists(unseen_data_path):
+        logger.info("🔎 Applying trained model to unseen data...")
+        predictor = ApplyTrainedModel(
+            data_path=unseen_data_path,
+            featurizer_id=featurizer_id,
+            model_type=model_type,
+            cv_strategy=cv_strategy
+        )
+        output = predictor.run()
+    else:
+        logger.warning("⚠️ Model or unseen data not found. Skipping prediction step.")
+
+    # Step 6: Evaluate Model
     if os.path.exists(model_path) and os.path.exists(valid_features_path):
         logger.info("📈 Evaluating the model...")
         evaluator = ModelEvaluation(

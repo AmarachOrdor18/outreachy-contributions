@@ -7,6 +7,8 @@ from rdkit.Chem import Draw
 import matplotlib.pyplot as plt
 from pathlib import Path
 from PIL import Image
+from IPython.display import display
+from io import BytesIO
 
 class ExploratoryDataAnalysis:
     def __init__(self, data_dir="data/"):
@@ -44,8 +46,8 @@ class ExploratoryDataAnalysis:
             plt.ylabel("Count")
             plt.title("Label Distribution - Blood Brain Barrier Permeability")
             plt.savefig(os.path.join(self.figure_dir, "label_distribution.png"))
+            plt.show()
             plt.close()
-            plt.show
             self.logger.info("✅ Label distribution saved.")
 
             # SMILES Length Distribution
@@ -56,8 +58,8 @@ class ExploratoryDataAnalysis:
             plt.ylabel("Frequency")
             plt.title("Distribution of Molecular Complexity (SMILES Length)")
             plt.savefig(os.path.join(self.figure_dir, "smiles_length_distribution.png"))
+            plt.show()
             plt.close()
-            plt.show
             self.logger.info("✅ SMILES length distribution saved.")
 
             # Molecular Structures
@@ -77,13 +79,21 @@ class ExploratoryDataAnalysis:
                     self.logger.warning(f"❗ Invalid SMILES string skipped: {smiles}")
 
             if mols:
-                img = Draw.MolsToGridImage(mols, molsPerRow=3, subImgSize=(200, 200), legends=valid_labels)
-                if isinstance(img, Image.Image):
-                    img_path = os.path.join(self.figure_dir, "molecule_visualization.png")
-                    img.save(img_path)
-                    self.logger.info("✅ Molecular visualization saved.")
-                else:
-                    self.logger.error("❌ Generated image is not a PIL image.")
+                img = Draw.MolsToGridImage(
+                    mols, molsPerRow=3, subImgSize=(200, 200), legends=valid_labels, useSVG=False
+                )
+
+                # Saving the image to a file using BytesIO
+                bio = BytesIO()
+                img.save(bio, format="PNG")  # Save to buffer as PNG
+                bio.seek(0)  # Rewind the buffer to the beginning
+                
+                img_path = os.path.join(self.figure_dir, "molecule_visualization.png")
+                with open(img_path, "wb") as f:
+                    f.write(bio.getvalue())  # Write buffer to file
+
+                display(img)  # Display the image in Jupyter notebook
+                self.logger.info("✅ Molecular visualization saved.")
             else:
                 self.logger.warning("❗ No valid molecules to visualize.")
 
@@ -92,7 +102,4 @@ class ExploratoryDataAnalysis:
         except Exception as e:
             self.logger.error(f"Error during EDA: {e}", exc_info=True)
             return None
-
-if __name__ == "__main__":
-    eda = ExploratoryDataAnalysis()
-    eda.generate_visuals()
+        

@@ -1,0 +1,109 @@
+Drug_ID,Drug,Y,Prediction,Probability
+cimetidine,CC1=C(N=CN1)CSCCNC(=NC)NC#N,0,Not Permeable,0.22557625
+ranitidine,CNC(=C[N+](=O)[O-])NCCSCC1=CC=C(O1)CN(C)C,0,Not Permeable,0.4068742
+digoxin,CC1C(C(CC(O1)OC2C(OC(CC2O)OC3C(OC(CC3O)OC4CCC5(C(C4)CCC6C5CC(C7(C6(CCC7C8=CC(=O)OC8)O)C)O)C)C)C)O)O,0,Not Permeable,0.053080346
+bromocriptine,CC(C)CC1C(=O)N2CCCC2C3(N1C(=O)C(O3)(C(C)C)NC(=O)C4CN(C5CC6=C(NC7=CC=CC(=C67)C5=C4)Br)C)O,0,Not Permeable,0.10616538
+fexofenadine,CC(C)(C1=CC=C(C=C1)C(CCCN2CCC(CC2)C(C3=CC=CC=C3)(C4=CC=CC=C4)O)O)C(=O)O,0,Permeable,0.6724637
+atenolol,CC(C)NCC(COC1=CC=C(C=C1)CC(=O)N)O,0,Not Permeable,0.18565743
+phenylbutazone,CCCCC1C(=O)N(N(C1=O)C2=CC=CC=C2)C3=CC=CC=C3,1,Permeable,0.6191025
+zolpidem,CC1=CC=C(C=C1)C2=C(N3C=C(C=CC3=N2)C)CC(=O)N(C)C,1,Permeable,0.9289801
+verapamil,CC(C)C(CCCN(C)CCC1=CC(=C(C=C1)OC)OC)(C#N)C2=CC(=C(C=C2)OC)OC,1,Not Permeable,0.2989384
+paracetamol,CC(=O)NC1=CC=C(C=C1)O,1,Permeable,0.8652605
+betahistine,CNCCC1=CC=CC=N1,1,Permeable,0.9738444
+theophylline,CN1C2=C(C(=O)N(C1=O)C)NC=N2,1,Permeable,0.7244943
+sotalol,CC(C)NCC(C1=CC=C(C=C1)NS(=O)(=O)C)O,1,Permeable,0.75549006
+ibuprofen,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,1,Not Permeable,0.22962944
+phenytoin,C1=CC=C(C=C1)C2(C(=O)NC(=O)N2)C3=CC=CC=C3,1,Permeable,0.97683334
+carbamazepine,C1=CC=C2C(=C1)C=CC3=CC=CC=C3N2C(=O)N,1,Permeable,0.9806747
+atropine,CN1C2CCC1CC(C2)OC(=O)C(CO)C3=CC=CC=C3,1,Permeable,0.66927636
+caffeine,CN1C=NC2=C1C(=O)N(C(=O)N2C)C,1,Permeable,0.9645504
+risperidone,CC1=C(C(=O)N2CCCCC2=N1)CCN3CCC(CC3)C4=NOC5=C4C=CC(=C5)F,1,Permeable,0.97155523
+alprazolam,CC1=NN=C2N1C3=C(C=C(C=C3)Cl)C(=NC2)C4=CC=CC=C4,1,Permeable,0.99190325
+clonidine,C1CN=C(N1)NC2=C(C=CC=C2Cl)Cl,1,Permeable,0.9580003
+hydroxyzine,C1CN(CCN1CCOCCO)C(C2=CC=CC=C2)C3=CC=C(C=C3)Cl,1,Permeable,0.97180206
+thioridazine,CN1CCCCC1CCN2C3=CC=CC=C3SC4=C2C=C(C=C4)SC,1,Permeable,0.99529845
+pergolide,CCCN1CC(CC2C1CC3=CNC4=CC=CC2=C34)CSC,1,Permeable,0.9809285
+diazepam,CN1C(=O)CN=C(C2=C1C=CC(=C2)Cl)C3=CC=CC=C3,1,Permeable,0.9942234
+clobazam,CN1C(=O)CC(=O)N(C2=C1C=CC(=C2)Cl)C3=CC=CC=C3,1,Permeable,0.9861967
+midazolam,CC1=NC=C2N1C3=C(C=C(C=C3)Cl)C(=NC2)C4=CC=CC=C4F,1,Permeable,0.9838478
+lorazepam,C1=CC=C(C(=C1)C2=NC(C(=O)NC3=C2C=C(C=C3)Cl)O)Cl,1,Permeable,0.9697048
+lamotrigine,C1=CC(=C(C(=C1)Cl)Cl)C2=C(N=C(N=N2)N)N,1,Permeable,0.8811191
+buspirone,C1CCC2(C1)CC(=O)N(C(=O)C2)CCCCN3CCN(CC3)C4=NC=CC=N4,1,Permeable,0.9950068
+mirtazepine,CN1CCN2C(C1)C3=CC=CC=C3CC4=C2N=CC=C4,1,Permeable,0.9554507
+oxazepam,C1=CC=C(C=C1)C2=NC(C(=O)NC3=C2C=C(C=C3)Cl)O,1,Permeable,0.9842202
+loperamide,CN(C)C(=O)C(CCN1CCC(CC1)(C2=CC=C(C=C2)Cl)O)(C3=CC=CC=C3)C4=CC=CC=C4,1,Permeable,0.7509091
+rizatriptan,CN(C)CCC1=CNC2=C1C=C(C=C2)CN3C=NC=N3,1,Permeable,0.8694197
+promazine,CN(C)CCCN1C2=CC=CC=C2SC3=CC=CC=C31,1,Permeable,0.99440867
+chlorpromazine,CN(C)CCCN1C2=CC=CC=C2SC3=C1C=C(C=C3)Cl,1,Permeable,0.9954218
+mianserin,CN1CCN2C(C1)C3=CC=CC=C3CC4=CC=CC=C42,1,Permeable,0.9903313
+propranolol,CC(C)NCC(COC1=CC=CC2=CC=CC=C21)O,1,Permeable,0.7280843
+haloperidol,C1CN(CCC1(C2=CC=C(C=C2)Cl)O)CCCC(=O)C3=CC=C(C=C3)F,1,Permeable,0.96481496
+Trifluoperazine,CN1CCN(CC1)CCCN2C3=CC=CC=C3SC4=C2C=C(C=C4)C(F)(F)F,1,Permeable,0.9963081
+fluphenazine,C1CN(CCN1CCCN2C3=CC=CC=C3SC4=C2C=C(C=C4)C(F)(F)F)CCO,1,Permeable,0.99562716
+methyldopa,CC(CC1=CC(=C(C=C1)O)O)(C(=O)O)N,0,Not Permeable,0.11835499
+piroxicam,CN1C(=C(C2=CC=CC=C2S1(=O)=O)O)C(=O)NC3=CC=CC=N3,0,Not Permeable,0.2499131
+enalapril,CCOC(=O)C(CCC1=CC=CC=C1)NC(C)C(=O)N2CCCC2C(=O)O,0,Not Permeable,0.14849533
+cefuroxim,CON=C(C1=CC=CO1)C(=O)NC2C3N(C2=O)C(=C(CS3)COC(=O)N)C(=O)O,0,Not Permeable,0.20838164
+Zopiclone,CN1CCN(CC1)C(=O)OC2C3=NC=CN=C3C(=O)N2C4=NC=C(C=C4)Cl,0,Permeable,0.98492914
+nifuroxazide,C1=CC(=CC=C1C(=O)NN=CC2=CC=C(O2)[N+](=O)[O-])O,0,Permeable,0.8211699
+chloramphenicol,C1=CC(=CC=C1C(C(CO)NC(=O)C(Cl)Cl)O)[N+](=O)[O-],0,Permeable,0.7022413
+furosemide,C1=COC(=C1)CNC2=CC(=C(C=C2C(=O)O)S(=O)(=O)N)Cl,0,Not Permeable,0.10680037
+meloxicam,CC1=CN=C(S1)NC(=O)C2=C(C3=CC=CC=C3S(=O)(=O)N2C)O,0,Not Permeable,0.2407012
+amoxicillin,CC1(C(N2C(S1)C(C2=O)NC(=O)C(C3=CC=C(C=C3)O)N)C(=O)O)C,0,Not Permeable,0.0074580624
+clathromycin,CCC1C(C(C(C(=O)C(CC(C(C(C(C(C(=O)O1)C)OC2CC(C(C(O2)C)O)(C)OC)C)OC3C(C(CC(O3)C)N(C)C)O)(C)OC)C)C)O)(C)O,0,Not Permeable,0.008242223
+doxycycline,CC1C2C(C3C(C(=O)C(=C(C3(C(=O)C2=C(C4=C1C=CC=C4O)O)O)O)C(=O)N)N(C)C)O,0,Not Permeable,0.04228033
+bisoprolol,CC(C)NCC(COC1=CC=C(C=C1)COCCOC(C)C)O,0,Permeable,0.6469634
+perindopril,CCCC(C(=O)OCC)NC(C)C(=O)N1C2CCCCC2CC1C(=O)O,0,Not Permeable,0.1590291
+valsartan,CCCCC(=O)N(CC1=CC=C(C=C1)C2=CC=CC=C2C3=NNN=N3)C(C(C)C)C(=O)O,0,Permeable,0.5849728
+temazepam,CN1C2=C(C=C(C=C2)Cl)C(=NC(C1=O)O)C3=CC=CC=C3,1,Permeable,0.97930545
+medazepam,CN1CCN=C(C2=C1C=CC(=C2)Cl)C3=CC=CC=C3,1,Permeable,0.992993
+bromazepam,C1C(=O)NC2=C(C=C(C=C2)Br)C(=N1)C3=CC=CC=N3,1,Permeable,0.9781146
+chlordiazepoxide,CN=C1CN(C(=C2C=C(C=CC2=N1)Cl)C3=CC=CC=C3)O,1,Permeable,0.95992875
+lormetazepam,CN1C2=C(C=C(C=C2)Cl)C(=NC(C1=O)O)C3=CC=CC=C3Cl,1,Permeable,0.9818871
+clorazepate,C1=CC=C(C=C1)C2=NC(C(=O)NC3=C2C=C(C=C3)Cl)C(=O)O,1,Permeable,0.88960236
+tamoxifen,CCC(=C(C1=CC=CC=C1)C2=CC=C(C=C2)OCCN(C)C)C3=CC=CC=C3,1,Not Permeable,0.46346664
+acetylsalicylic acid,CC(=O)OC1=CC=CC=C1C(=O)O,1,Not Permeable,0.4391441
+BZ3,COC1=CC2=C(C=C1)NC=C2,1,Permeable,0.8499166
+promethazine,CC(CN1C2=CC=CC=C2SC3=CC=CC=C31)N(C)C,1,Permeable,0.9914232
+astemizol,COC1=CC=C(C=C1)CCN2CCC(CC2)NC3=NC4=CC=CC=C4N3CC5=CC=C(C=C5)F,1,Not Permeable,0.28029433
+dimethindene,CC(C1=CC=CC=N1)C2=C(CC3=CC=CC=C32)CCN(C)C,1,Permeable,0.96688217
+levocabastine,CC1CN(CCC1(C2=CC=CC=C2)C(=O)O)C3CCC(CC3)(C#N)C4=CC=C(C=C4)F,1,Permeable,0.82649374
+diphenhydramine,CN(C)CCOC(C1=CC=CC=C1)C2=CC=CC=C2,1,Permeable,0.960181
+famotidine,C1=C(N=C(S1)N=C(N)N)CSCCC(=NS(=O)(=O)N)N,1,Permeable,0.8831839
+loratadine,CCOC(=O)N1CCC(=C2C3=C(CCC4=C2N=CC=C4)C=C(C=C3)Cl)CC1,1,Permeable,0.98378193
+cyproheptadine,CN1CCC(=C2C3=CC=CC=C3C=CC4=CC=CC=C42)CC1,1,Permeable,0.99230754
+antazoline,C1CN=C(N1)CN(CC2=CC=CC=C2)C3=CC=CC=C3,1,Permeable,0.7415758
+sumatriptan,CNS(=O)(=O)CC1=CC2=C(C=C1)NC=C2CCN(C)C,1,Permeable,0.70632493
+olanzapine,CC1=CC2=C(S1)NC3=CC=CC=C3N=C2N4CCN(CC4)C,1,Permeable,0.9891138
+tiapride,CCN(CC)CCNC(=O)C1=C(C=CC(=C1)S(=O)(=O)C)OC,1,Permeable,0.9254454
+clozapine,CN1CCN(CC1)C2=NC3=C(C=CC(=C3)Cl)NC4=CC=CC=C42,1,Permeable,0.99524117
+zolmitriptane,CN(C)CCC1=CNC2=C1C=C(C=C2)CC3COC(=O)N3,1,Permeable,0.91496384
+cisapride,COC1CN(CCC1NC(=O)C2=CC(=C(C=C2OC)N)Cl)CCCOC3=CC=C(C=C3)F,1,Permeable,0.93957347
+trazodone,C1CN(CCN1CCCN2C(=O)N3C=CC=CC3=N2)C4=CC(=CC=C4)Cl,1,Permeable,0.99128854
+fluconazole,C1=CC(=C(C=C1F)F)C(CN2C=NC=N2)(CN3C=NC=N3)O,1,Permeable,0.94913995
+gliclazide,CC1=CC=C(C=C1)S(=O)(=O)NC(=O)NN2CC3CCCC3C2,1,Permeable,0.7095921
+quetiapine,C1CN(CCN1CCOCCO)C2=NC3=CC=CC=C3SC4=CC=CC=C42,1,Permeable,0.9913162
+sulpiride,CCN1CCCC1CNC(=O)C2=C(C=CC(=C2)S(=O)(=O)N)OC,1,Permeable,0.9197274
+perazine,CN1CCN(CC1)CCCN2C3=CC=CC=C3SC4=CC=CC=C42,1,Permeable,0.99668616
+chlorprothixene,CN(C)CCC=C1C2=CC=CC=C2SC3=C1C=C(C=C3)Cl,1,Permeable,0.99120647
+sertindole,C1CN(CCC1C2=CN(C3=C2C=C(C=C3)Cl)C4=CC=C(C=C4)F)CCN5CCNC5=O,1,Permeable,0.9772184
+zuclopenthixol,C1CN(CCN1CCC=C2C3=CC=CC=C3SC4=C2C=C(C=C4)Cl)CCO,1,Permeable,0.9943245
+flupenthixol,C1CN(CCN1CCC=C2C3=CC=CC=C3SC4=C2C=C(C=C4)C(F)(F)F)CCO,1,Permeable,0.99149644
+cabergoline,CCNC(=O)N(CCCN(C)C)C(=O)C1CC2C(CC3=CNC4=CC=CC2=C34)N(C1)CC=C,1,Permeable,0.9504707
+metoclopramide,CCN(CC)CCNC(=O)C1=CC(=C(C=C1OC)N)Cl,1,Permeable,0.95228237
+spironolactone,CC(=O)SC1CC2=CC(=O)CCC2(C3C1C4CCC5(C4(CC3)C)CCC(=O)O5)C,1,Permeable,0.8738822
+eplerenone,CC12CCC(=O)C=C1CC(C3C24C(O4)CC5(C3CCC56CCC(=O)O6)C)C(=O)OC,1,Permeable,0.7464615
+simvastatin,CCC(C)(C)C(=O)OC1CC(C=C2C1C(C(C=C2)C)CCC3CC(CC(=O)O3)O)C,1,Permeable,0.8181295
+latanoprost,CC(C)OC(=O)CCCC=CCC1C(CC(C1CCC(CCC2=CC=CC=C2)O)O)O,1,Permeable,0.73519146
+telmisartan,CCCC1=NC2=C(N1CC3=CC=C(C=C3)C4=CC=CC=C4C(=O)O)C=C(C=C2C)C5=NC6=CC=CC=C6N5C,1,Not Permeable,0.11738132
+naproxen,CC(C1=CC2=C(C=C1)C=C(C=C2)OC)C(=O)O,1,Not Permeable,0.16388983
+capecitabine,CCCCCOC(=O)NC1=NC(=O)N(C=C1F)C2C(C(C(O2)C)O)O,1,Not Permeable,0.31163383
+acenocumarol,CC(=O)CC(C1=CC=C(C=C1)[N+](=O)[O-])C2=C(C3=CC=CC=C3OC2=O)O,1,Not Permeable,0.28127864
+chlortalidone,C1=CC=C2C(=C1)C(=O)NC2(C3=CC(=C(C=C3)Cl)S(=O)(=O)N)O,1,Not Permeable,0.37437204
+drotaverine,CCOC1=C(C=C(C=C1)C=C2C3=CC(=C(C=C3CCN2)OCC)OCC)OCC,1,Permeable,0.95733416
+emedastine,CCOCCN1C2=CC=CC=C2N=C1N3CCCN(CC3)C,1,Permeable,0.9730089
+ketotifen,CN1CCC(=C2C3=C(C(=O)CC4=CC=CC=C42)SC=C3)CC1,1,Permeable,0.99331045
+desloratidine,C1CC2=C(C=CC(=C2)Cl)C(=C3CCNCC3)C4=C1C=CC=N4,1,Permeable,0.9870062
+clemastine,CC(C1=CC=CC=C1)(C2=CC=C(C=C2)Cl)OCCC3CCCN3C,1,Permeable,0.968416
+vitamin K,CC1=C(C(=O)C2=CC=CC=C2C1=O)CC=C(C)CCCC(C)CCCC(C)CCCC(C)C,1,Permeable,0.9417239
+triclosan,C1=CC(=C(C=C1Cl)O)OC2=C(C=C(C=C2)Cl)Cl,1,Permeable,0.9092732

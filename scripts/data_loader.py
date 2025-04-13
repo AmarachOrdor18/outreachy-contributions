@@ -5,7 +5,7 @@ import pandas as pd
 from tdc.single_pred import ADME
 from pathlib import Path
 
-class Dataloader:                                                                                                                                        
+class Dataloader:
     def __init__(self, data_dir="data/"):
         # Get the notebook directory and the base directory for data
         notebook_dir = Path(__file__).resolve().parent
@@ -27,7 +27,7 @@ class Dataloader:
         handler = logging.StreamHandler()
         handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
         self.logger.addHandler(handler)
-        
+
     def fetch_bbb_dataset(self, split_method="scaffold"):
         """
         Downloads the BBB (Blood-Brain Barrier) dataset from the ADME Pharmacokinetics category.
@@ -35,10 +35,27 @@ class Dataloader:
         Saves it as a CSV file and returns the DataFrame.
         """
         try:
-            # Ensure clean data directory
+            # Ensure clean data directory, but preserve unseen_data.csv
             if os.path.exists(self.data_dir):
-                self.logger.info(f"Removing existing data directory: {self.data_dir}")
+                self.logger.info(f"Cleaning data directory: {self.data_dir} (excluding unseen_data.csv)")
+
+                unseen_file = self.data_dir / "unseen_data.csv"
+                temp_unseen = None
+
+                # If unseen_data.csv exists, move it temporarily
+                if unseen_file.exists():
+                    temp_unseen = self.data_dir.parent / "unseen_data.csv"
+                    shutil.move(str(unseen_file), str(temp_unseen))
+                    self.logger.info("📦 unseen_data.csv backed up.")
+
+                # Remove all contents of data_dir
                 shutil.rmtree(self.data_dir)
+                os.makedirs(self.data_dir, exist_ok=True)
+
+                # Move unseen_data.csv back
+                if temp_unseen and temp_unseen.exists():
+                    shutil.move(str(temp_unseen), str(self.data_dir / "unseen_data.csv"))
+                    self.logger.info("📁 unseen_data.csv restored.")
 
             os.makedirs(self.data_dir, exist_ok=True)
             self.logger.info(f"Data directory created at: {self.data_dir}")
@@ -72,7 +89,5 @@ class Dataloader:
         except Exception as e:
             self.logger.error(f"❌ Error: {e}", exc_info=True)
             return None
-
-if __name__ == "__main__":
-    downloader = Dataloader()
-    downloader.fetch_bbb_dataset(split_method="scaffold")  # Use Scaffold Split
+        
+        

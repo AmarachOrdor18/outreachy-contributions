@@ -1,10 +1,7 @@
 # **Blood Brain Barrier (BBB) Permeability Prediction**
 
-## Getting Started
-
-
-This project aims to build a machine learning pipeline that predicts whether a compound can cross the blood-brain barrier (BBB). BBB permeability is a critical consideration in drug development, particularly for medications targeting the central nervous system. The pipeline includes dataset collection, exploratory data analysis (EDA), molecular featurization, model training, and performance evaluation. The goal is to automate dataset loading, feature extraction, model training, and evaluation to accelerate drug discovery for **neurological diseases** such as **stroke, epilepsy, and meningitis**.
-
+This project aims to build a machine learning pipeline that predicts whether a compound can cross the blood-brain barrier (BBB). BBB permeability is a critical consideration in drug development, particularly for medications targeting the central nervous system. The pipeline includes dataset collection, exploratory data analysis (EDA), molecular featurization, model training, and performance evaluation. The goal is to automate dataset loading, feature extraction, model training, application of model and evaluation to accelerate drug discovery for **neurological diseases** such as **stroke, epilepsy, and meningitis**.
+ 
 ## Tech Stack
 
 - **Language**: Python 3.11.11
@@ -27,6 +24,7 @@ This project aims to build a machine learning pipeline that predicts whether a c
 │   ├── eda.py               # Exploratory data analysis
 │   ├── featurise.py         # Molecular featurization
 │   ├── train_model.py       # Model training
+│   ├── apply_model.py       # Applying Trained model on Unseen Data
 │   ├── evaluate_model.py    # Model evaluation
 │   └── main.py              # Full automation pipeline
 ├── README.md                # This file
@@ -39,9 +37,9 @@ To ensure consistency and clarity, I use a naming convention for files based on 
 
 ---
 
-## ⚠️ Important: Dependencies
+## Important: Dependencies
 
-**Ensure that you have Conda and Ersilia installed before running the project.**
+**Ensure that you have Conda and Ersilia installed before running the project, also make sure docker is running as the ersilia commands won't work without it**
 
 - Use **Conda** to manage dependencies
 - **Ersilia CLI** is required for molecular descriptor extraction
@@ -143,7 +141,7 @@ I checked the **[eos8a4x: RDKit 200 Physicochemical Descriptors](https://github.
 
 I also explored **[eos5axz: Morgan counts fingerprints](https://github.com/ersilia-os/eos5axz)**, which generates **circular molecular fingerprints** capturing local chemical environments. These are effective for predicting molecular interactions with biological membranes, making it a strong choice for BBB permeability prediction.
 
-Together, **eos8a4x** and **eos4wt0** offer complementary features focusing on both **physicochemical properties** and **molecular structure**, ideal for BBB permeability prediction.
+Together, **eos8a4x** and **eos5axz** offer complementary features focusing on both **physicochemical properties** and **molecular structure**, ideal for BBB permeability prediction.
 
 The featurisation process was automated using the Ersilia CLI. Features were generated for training, validation, and test datasets and saved with appropriate naming conventions that included the featurizer ID. This step ensured that feature generation was reproducible and easy to update if needed. All descriptors were saved in separate files in the `/data` directory.
 
@@ -271,9 +269,21 @@ Here is a brief explanation of what each metrics mean in the prediction of BBB p
 
 ---
 
-## Conclusions
+## Applying Model on Unseen data
 
-The pipeline successfully predicts BBB permeability using molecular descriptors derived from SMILES strings. The Random Forest model demonstrated consistent performance across training and validation data, with strong generalization. The visualizations helped interpret the model's decision-making, highlighting key chemical features that contribute to BBB permeability.
+Previously it was established that using the eos8a4x featuriser, a random forest model with a stratified k fold was the best beforming, to validate its performance, i applied both variation of model architecture and featuriser type on the unseen data, after whuch i confirmed that the eos8a4x featuriser, a random forest model with a stratified k fold was the best beforming, best redicted the permeability and non-permeabily for a drug to pass through the brain barrier. I made this process reproducible by creating a python script called apply_model.py that allows you to import the class into a note book and run the models based on any other unseen data. Here is the classification report for the Unseen Data 
+
+### Classification Report
+
+| Class         | Precision | Recall | F1-Score | Support |
+|---------------|-----------|--------|----------|---------|
+| 0             | 0.621     | 0.857  | 0.720    | 21      |
+| 1             | 0.962     | 0.874  | 0.916    | 87      |
+| **Accuracy**  | 0.870 | 0.870| 0.870| 108 |
+| **Macro avg** | 0.791     | 0.865  | 0.818    | 108     |
+| **Weighted avg** | 0.896  | 0.870  | 0.878    | 108     |
 
 
-.
+## Any Improvements 
+
+To improve the Ersilia Model Hub, we can enhance data imbalance handling by fine-tuning oversampling methods like **SMOTE**, and exploring advanced techniques such as **ADASYN (Adaptive Synthetic Sampling)**. Using ensemble methods like **XGBoost**, **Random Forest**, or model stacking with **scikit-learn's StackingClassifier** can improve prediction accuracy. Robust cross-validation using **StratifiedKFold** or **RepeatedStratifiedKFold** ensures consistency in high-dimensional datasets. Additionally, incorporating interpretability tools like **SHAP** and **LIME** is essential, especially in drug development, where understanding model predictions is critical for real-world decisions.

@@ -374,31 +374,4 @@ class ModelTraining:
         return filenames
 
 
-if __name__ == "__main__":
-    featurizer_id = "eos5axz"  # Change if running training
-    model_type = "random_forest"
-    cv_strategy = "stratified_kfold"
-
-    # Initialize the ModelTraining class (training part)
-    trainer = ModelTraining(
-        featurizer_id=featurizer_id,
-        model_type=model_type,
-        cv_strategy=cv_strategy
-    )
-    trainer.run()
-
-    # INFERENCE (prediction part)
-    smiles = "CC(C)CCOCC"  # Example SMILES string
-    featuriser = 'eos8a4x'
-    
-    # Use the FeatureExtractor to get features from the SMILES string
-    featurizer = FeatureExtractor(featuriser)
-    X = featurizer.featurize_smiles(smiles)
-
-    if X is not None:
-        # Initialize ModelTraining for prediction
-        modelling = ModelTraining(featurizer_id=featuriser)
-
-        # Now use the already trained scaler and model
-        prediction = modelling.make_predictions(X, featuriser)
 

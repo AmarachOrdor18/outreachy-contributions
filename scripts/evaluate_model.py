@@ -192,13 +192,3 @@ class ModelEvaluation:
         with open(self.feature_file, 'r') as f:
             return [line.strip() for line in f.readlines()]
 
-if __name__ == "__main__":
-    featurizer_id = "eos5axz"  # Change if running training
-    model_type = "random_forest"
-    cv_strategy = "stratified_kfold" # Example cross-validation strategy (e.g., kfold)
-
-    # Step 1: Initialize the evaluator
-    evaluator = ModelEvaluation(featurizer_id, model_type, cv_strategy)
-
-    # Step 2: Run the evaluation
-    evaluator.run_evaluation()

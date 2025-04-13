@@ -169,21 +169,3 @@ class FeatureExtractor:
             self.logger.error(f"Error during featurization for SMILES: {e}", exc_info=True)
             return None
 
-if __name__ == "__main__":
-    # Replace with the actual featurizer ID you want to use
-    featurizer_id = "eos8a4x"
-    
-    # Initialize the FeatureExtractor object
-    extractor = FeatureExtractor(featurizer_id)
-
-    # Example SMILES string (Ethanol)
-    smiles_string = "CCO"
-
-    # Call the featurize_smiles method to process the single SMILES string
-    features_df = extractor.featurize_smiles(smiles_string)
-
-    if features_df is not None:
-        print("Featurization successful! Features extracted:")
-        print(features_df)
-    else:
-        print("Featurization failed.")
